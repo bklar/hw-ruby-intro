@@ -45,14 +45,52 @@ def starts_with_consonant? s
   if s.length()==0
     return false
   end
-  return s =~ /^[b-df-hj-np-tv-z]/
+  return (s =~ /^[b-df-hj-np-tv-z]/) || (s =~ /^[B-DF-HJ-NP-TV-Z]/)
 end
 
 def binary_multiple_of_4? s
-  return s =~  /^[1]*(00)$/
+  if s =~  /^[01]+(00)$/
+    if s.contains?("1")
+      return true
+    else
+      return false
+    end
+  else
+    return false
+  end
 end
 
 # Part 3
 class BookInStock
+  #we need the initialize function for the class
+  def initialize(isbn,price)
+    if (isbn.empty? || price<=0)
+      raise ArgumentError.new("Invalid")
+    else
+      @isbn = isbn
+      @price = price
+    end
+  end
   
+  #standard getter setter conventions
+  
+  def isbn
+    @isbn
+  end
+  
+  def price
+    @price
+  end
+  
+  def isbn=(value)
+    @isbn = value
+  end
+  
+  def price=(value)
+    @price = value
+  end
+  
+  def price_as_string
+    "$#{'%.2f' % @price}"
+  end
 end
